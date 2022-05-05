@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const uuid = require("generate-unique-id");
-const PORT = 3005;
+const PORT = process.env.PORT || 3005;
 
 const app = express();
 
