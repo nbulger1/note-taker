@@ -1,8 +1,7 @@
 const express = require("express");
 const fs = require("fs");
-const uuid = require("./helpers/uuid");
+const uuid = require("generate-unique-id");
 const PORT = 3005;
-// let noteData = require("./db/db.json");
 
 const app = express();
 
