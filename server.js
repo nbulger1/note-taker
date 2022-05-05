@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const uuid = require("./helpers/uuid");
 const PORT = 3005;
-let noteData = require("./db/db.json");
+// let noteData = require("./db/db.json");
 
 const app = express();
 
@@ -26,10 +26,10 @@ app.get("/api/notes", (req, res) => {
     if (err) {
       console.error(err);
     } else {
-      noteData = data;
+      const parsedNotes = JSON.parse(data);
+      return res.json(parsedNotes);
     }
   });
-  res.json(noteData);
 });
 
 app.post("/api/notes", (req, res) => {
@@ -45,7 +45,7 @@ app.post("/api/notes", (req, res) => {
     const newNote = {
       title,
       text,
-      review_id: uuid(),
+      id: uuid(),
     };
 
     // Obtain existing reviews
@@ -81,9 +81,31 @@ app.post("/api/notes", (req, res) => {
   }
 });
 
-// app.delete("/api/notes/:id", (req, res) => {
-//   //delete a note - read all notes from the `db.json` file, remove the note with the given `id` property, and then rewrite the notes to the `db.json` file.
-// });
+app.delete("/api/notes/:id", (req, res) => {
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      const parsedNotes = JSON.parse(data);
+      const { id } = req.params;
+
+      const noteIndex = parsedNotes.findIndex((p) => p.id == id);
+
+      parsedNotes.splice(noteIndex, 1);
+
+      //   res.send();
+      fs.writeFile(
+        "./db/db.json",
+        JSON.stringify(parsedNotes, null, 4),
+        (writeErr) =>
+          writeErr
+            ? console.error(writeErr)
+            : console.info("Successfully updated notes!")
+      );
+      return res.json(parsedNotes);
+    }
+  });
+});
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
