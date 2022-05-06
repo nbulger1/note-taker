@@ -76,7 +76,13 @@ Finally I created a delete request that is called when the client clicks on the 
 
 ## Screen Recording
 
-![GIF demonstrating the functionality of the front-end application, adding and deleting notes, and the back-end server, updating the JSON file with the new or removed notes, running using express.js and deployed using Heroku]()
+Front End Functionality on Heroku:
+
+![GIF demonstrating the functionality of the front-end application, adding and deleting notes, on the deployed Heroku application](./public/assets/images/front-end-note-taker.gif)
+
+Back End Functionality on localhost to see updating JSON file:
+
+![GIF demonstrating the back-end server, updating the JSON file with the new or removed notes](./public/assets/images/back-end-note-taker.gif)
 
 ## Link
 
